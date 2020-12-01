@@ -97,12 +97,15 @@ def with_if_function():
 
 def c():
     "*** YOUR CODE HERE ***"
+    return False
 
 def t():
     "*** YOUR CODE HERE ***"
+    return print(1)
 
 def f():
     "*** YOUR CODE HERE ***"
+    return print(2)
 
 # Q5
 def hailstone(n):
@@ -121,6 +124,16 @@ def hailstone(n):
     7
     """
     "*** YOUR CODE HERE ***"
+    length=1
+    while n != 1:
+        print(n)
+        length+=1
+        if n%2==0:
+            n//=2
+        else:
+            n=n*3+1
+    print(n)
+    return length
 
 # Q6
 quine = """
