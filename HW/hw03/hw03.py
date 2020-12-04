@@ -42,7 +42,6 @@ def has_seven(k):
     else:
         return has_seven(k//10)
 
-
 def pingpong(n):
     """Return the nth element of the ping-pong sequence.
 
@@ -75,6 +74,16 @@ def pingpong(n):
     True
     """
     "*** YOUR CODE HERE ***"
+    def counter(count, direction, current):
+        if count == n:
+            return current
+        else:
+            if count%7==0 or has_seven(count):
+                return counter(count+1, direction*-1, current-direction)
+            else:
+                return counter(count+1, direction, current+direction)
+
+    return counter(1,1,1)
 
 def accumulate(combiner, base, n, term):
     """Return the result of combining the first n terms in a sequence and base.
