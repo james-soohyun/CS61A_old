@@ -146,6 +146,10 @@ def best_predictor(user, restaurants, feature_fns):
     predictors = []
     for feature in feature_fns:
         predictors.append(find_predictor(user, reviewed, feature))
+
+    # list => [1, 2, 3, 4, 5]
+    # iterator => (func that computes to 1, next is a func that computes to 2)
+    map()
     return max(predictors, key = lambda x: x[1])[0]
     # END Question 8
 
