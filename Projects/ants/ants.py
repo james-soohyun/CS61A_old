@@ -286,19 +286,21 @@ class FireAnt(Ant):
         """
         # BEGIN Problem 5
         "*** YOUR CODE HERE ***"
-        self.armor -= amount
-        bees = list(self.place.bees)
-        if self.armor <= 0:
-            for bee in bees:
-                Insect.reduce_armor(bee, self.damage)
-            self.place.remove_insect(self)
-        
         # self.armor -= amount
-        # bees = self.place.bees
+        # bees = list(self.place.bees)
         # if self.armor <= 0:
-        #     damage_bees = map(Insect.reduce_armor(self.damage), bees)
-        #     self.place.bees = list(damage_bees)
+        #     for bee in bees:
+        #         bee.reduce_armor(self.damage)
         #     self.place.remove_insect(self)
+        
+        self.armor -= amount
+        bees = self.place.bees
+        def f(bee):
+            bee.reduce_armor(self.damage)
+        if self.armor <= 0:
+            list(map(f, bees[::-1]))
+            self.place.remove_insect(self)
+
         # END Problem 5
 
 
