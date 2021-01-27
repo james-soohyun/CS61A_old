@@ -145,7 +145,10 @@ class Bee(Insect):
         """Return True if this Bee cannot advance to the next Place."""
         # Phase 4: Special handling for NinjaAnt
         # BEGIN Problem 7
-        return self.place.ant is not None
+        if self.place.ant == None or self.place.ant.blocks_path == False:
+            return False
+        else:
+            return True
         # END Problem 7
 
     def action(self, colony):
@@ -172,6 +175,7 @@ class Ant(Insect):
     implemented = False  # Only implemented Ant classes should be instantiated
     food_cost = 0
     # ADD CLASS ATTRIBUTES HERE
+    blocks_path = True
 
     def __init__(self, armor=1):
         """Create an Ant with an ARMOR quantity."""
@@ -310,23 +314,37 @@ class HungryAnt(Ant):
     """
     name = 'Hungry'
     # OVERRIDE CLASS ATTRIBUTES HERE
+    food_cost = 4
+    armor = 1
+    time_to_digest = 3
     # BEGIN Problem 6
-    implemented = False   # Change to True to view in the GUI
+    implemented = True   # Change to True to view in the GUI
     # END Problem 6
 
     def __init__(self, armor=1):
         # BEGIN Problem 6
         "*** YOUR CODE HERE ***"
+        self.digesting = 0
         # END Problem 6
 
     def eat_bee(self, bee):
         # BEGIN Problem 6
         "*** YOUR CODE HERE ***"
+        bee.reduce_armor(bee.armor)
         # END Problem 6
 
     def action(self, colony):
         # BEGIN Problem 6
         "*** YOUR CODE HERE ***"
+        # self.start_time = colony.time
+        if len(self.place.bees) > 0:
+            if self.digesting == 0:
+                bee = random_or_none(self.place.bees)
+                self.eat_bee(bee)
+                self.digesting = self.time_to_digest
+            else:
+                self.digesting -= 1
+        
         # END Problem 6
 
 class NinjaAnt(Ant):
@@ -335,6 +353,9 @@ class NinjaAnt(Ant):
     name = 'Ninja'
     damage = 1
     # OVERRIDE CLASS ATTRIBUTES HERE
+    blocks_path = False
+    armor = 1
+    food_cost = 5
     # BEGIN Problem 7
     implemented = False   # Change to True to view in the GUI
     # END Problem 7
@@ -342,6 +363,9 @@ class NinjaAnt(Ant):
     def action(self, colony):
         # BEGIN Problem 7
         "*** YOUR CODE HERE ***"
+        bees = list(self.place.bees)
+        for bee in bees:
+            bee.reduce_armor(self.damage)
         # END Problem 7
 
 # BEGIN Problem 8
