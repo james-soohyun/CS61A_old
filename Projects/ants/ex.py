@@ -1,10 +1,12 @@
+a = [0,1,2,3,4]
+
 def f(x):
     return x
 
-for i in range(5):
+for i in a:
     f(i)
 
-list(map(f, range(5)))
+list(map(f, a))
 
 class Random:
     def __init__(self, x):
